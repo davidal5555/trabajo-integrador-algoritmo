@@ -2,7 +2,7 @@
 #include <windows.h>
 #include <time.h>
 #include <string.h>
-
+#include<conio.h>
 struct Veterinario{
 	char apynom[60];
 	int matricula;
@@ -113,15 +113,30 @@ main(){
 
 int IniciarSesion(FILE *archVeterinario, Veterinario regVeterinario){
 	int existeUsuario=0;//VARIABLE QUE GUARDARA LA MATRICULA SE ES ENCONTRADO EL NUMERO DE MATRICULA
-	int mat;
-	char pass[32];
+	int mat,i=0;
+	char pass[32],c;
 	archVeterinario=fopen("Veterinarios.dat","rb");
 	printf("\t INICIO DE SESION\n\n");
 	printf("Matricula: ");
 	scanf("%d",&mat);
 	_flushall();
 	printf("Password: ");
-	gets(pass);
+	while((i<32 )and (c!=13))
+	{
+		c=getch();
+		
+	  	if(c==13|| i==31)
+	  	{
+	  		pass[i]='\0';
+	  	}
+	  	else
+	  	{
+	  		pass[i]=c;
+	  	}
+	  	printf("#");
+	  	i++;
+	}
+	
 	fread(&regVeterinario,sizeof(Veterinario),1,archVeterinario);
 	while(!feof(archVeterinario)){
 		//ESTE IF CONSULTA SI LOS TADOS INGRESADOS SON IGUALES A LOS DATOS QUE EXISTEN EN EL ARCHIVO "Veterinarios.dat"
