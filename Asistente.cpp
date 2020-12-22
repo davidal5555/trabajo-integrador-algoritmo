@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
-#include<ctype.h>
 #include<stdlib.h>
+#include<ctype.h>
 #include<conio.h>
 
 struct fecha
@@ -139,8 +139,8 @@ int IniciarSesion()
 {
 	FILE *arch;
 	 Usuarios usua, us;
-	int existeUsuario=0;
-	
+	int existeUsuario=0,i=0;
+	char palabras[32],c;
 	arch=fopen("usuarios.dat","rb");
 	printf("\t INICIO DE SESION\n\n");
 	printf("Usuario: ");
@@ -148,8 +148,25 @@ int IniciarSesion()
 	gets(us.usuario);
 	printf("Password: ");
 	_flushall();
-	gets(us.password);
+	while((i<32 )and (c!=13))
+	{
+		c=getch();
+		
+	  	if(c==13|| i==31)
+	  	{
+	  		palabras[i]='\0';
+	  	}
+	  	else
+	  	{
+	  		palabras[i]=c;
+	  	}
+	  	printf("#");
+	  	i++;
+	}
+	strcpy(us.password,palabras);
+	
 	fread(&usua,sizeof(Usuarios),1,arch);
+	
 	
 	while(!feof(arch)){
 		
